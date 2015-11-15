@@ -1,4 +1,4 @@
-import countPoints from 'lib/countPoints.js';
+import { countPoints } from 'lib/countPoints.js';
 
 export class Developer {
     constructor (name, experience, languages) {

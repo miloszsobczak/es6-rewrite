@@ -1,4 +1,4 @@
-import Developer from 'class/Developer.js';
+import { Developer } from 'class/Developer.js';
 
 class PixersDeveloper extends Developer {
     constructor (name, experience, languages, awesomeness) {
