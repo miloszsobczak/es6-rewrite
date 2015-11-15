@@ -22,10 +22,13 @@
         return this.worklog[taskId];
     }
     PixersDeveloper.prototype.setWork = function (taskId, timeInMins) {
+        var self = this;
         if (this.worklog.hasOwnProperty(taskId) === false) {
             return this.worklog[taskId] = timeInMins;
         }
-        this.worklog[taskId] = this.getWorkById(taskId) + timeInMins;
+        this.worklog[taskId] = (function () {
+            return self.getWorkById(taskId) + timeInMins;
+        })();
     }
     PixersDeveloper.prototype.developersDegree = function () {
         return Developer.prototype.developersDegree.call(this);

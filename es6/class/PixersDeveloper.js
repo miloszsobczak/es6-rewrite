@@ -5,7 +5,7 @@ class PixersDeveloper extends Developer {
         super(name, experience, languages);
         this.awesomeness = awesomeness;
 
-        this.Worklog = new WeakMap();
+        this.Worklog = new Map();
     }
     set awesomeness (value = 0) {
         if (typeof value === 'number') {
