@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Ecmascript 2015 – Best of new Features().</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Miłosz Sobczak">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+		<p class="github-link">
+			Main example source code can be found at <a href="//github.com/miloszsobczak/es6-rewrite">github.com/miloszsobczak/es6-rewrite</a>.
+		</p>
+		<div class="reveal">
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-background="#fff">
+					<h1>Ecmascript 2015</h1>
+					<h3>Best of new Features().</h3>
+					<p>
+						<small>by <a href="http://miloszsobczak.pl">Miłosz Sobczak</a> / <a href="http://twitter.com/miloszsobczak">@miloszsobczak</a> at <a href="//pixersize.com"><img style="box-shadow: none;width: 100px;margin-top: -15px;" src="http://pixers.pl/static/img/logo/logo_pixers_tm.png" alt="PIXERS"></a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Classes</h2>
+				</section>
+
+				<section>
+					<article>
+						<h2>Classes Definition</h2>
+						<h3>Ecmascript 5 <small>old way</small></h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+var Developer = function Developer(name, experience, languages) {
+    this.name(name || '');
+    this.experience(experience || 0);
+    this.languages(languages || []);
+}
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>Classes Definition</h2>
+						<h3>Ecmascript 2015 (6)</h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+class Developer {
+    constructor (name, experience, languages) {
+        this.name = name;
+        this.experience = experience;
+        this.languages = languages;
+    }
+}
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>Classes Inheritance</h2>
+						<h3>Ecmascript 5 <small>old way</small></h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+var PixersDeveloper = function PixersDeveloper (name, experience, languages, awesomeness) {
+    Developer.call(this, name, experience, languages);
+    this.awesomeness(awesomeness);
+
+    this.worklog = {};
+};
+PixersDeveloper.prototype = Object.create(Developer.prototype);
+PixersDeveloper.prototype.constructor = PixersDeveloper;
+PixersDeveloper.prototype.default = function () {
+    return new PixersDeveloper('Mieszkos', 2, ['Whitespace'], -1000)
+}
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>Classes Inheritance</h2>
+						<h3>Ecmascript 2015 (6)</h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+class PixersDeveloper extends Developer {
+    constructor (name, experience, languages, awesomeness) {
+        super(name, experience, languages);
+        this.awesomeness = awesomeness;
+
+        this.Worklog = new WeakMap();
+    }
+}
+static default () {
+    return new PixersDeveloper('Mieszkos', 2, ['Whitespace'], -1000);
+}
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>Classes super access</h2>
+						<h3>Ecmascript 5 <small>old way</small></h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+//base class constructor
+Developer.call(this, name, experience, languages);
+//method access
+Developer.prototype.method.call(this);
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>Classes super access</h2>
+						<h3>Ecmascript 2015 (6)</h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+//base class constructor
+super(name, experience, languages);
+//method access
+super.method()
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>Classes static function</h2>
+						<h3>Ecmascript 5 <small>old way</small></h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+PixersDeveloper.prototype.default = function () {
+    return new PixersDeveloper('Mieszkos', 2, ['Whitespace'], -1000)
+}
+//usage
+var Mieszkos = PixersDeveloper.default();
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>Classes static function</h2>
+						<h3>Ecmascript 2015 (6)</h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+static default () {
+    return new PixersDeveloper('Mieszkos', 2, ['Whitespace'], -1000);
+}
+//usage
+var Mieszkos = PixersDeveloper.default();
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>Classes setter/getter</h2>
+						<h3>Ecmascript 5 <small>old way</small></h3>
+						<p>Described in ecmascript 5.0 (not in 5.1).</p>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+PixersDeveloper.prototype.awesomeness = function (value) {
+    if (typeof value === 'number') {
+        this._awesomeness = parseInt(value, 10);
+    }
+    return this._awesomeness;
+}
+//setter usage
+this.awesomeness(10);
+//getter usage
+var dev_awesomness = this.awesomeness();
+
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>Classes setter/getter</h2>
+						<h3>Ecmascript 2015 (6)</h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+set awesomeness (value = 0) {
+    if (typeof value === 'number') {
+        this._awesomeness = parseInt(value, 10);
+    }
+}
+get awesomeness () {
+    return this._awesomeness;
+}
+//setter usage
+this.awesomeness = 10;
+//getter usage
+var dev_awesomness = this.awesomeness;
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>Classes extending <a href="http://speakingjs.com/es5/ch28.html">built-ins</a></h2>
+						<h3>Ecmascript 5 <small>old way</small></h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+function MyArray(/*arguments*/) {
+    var arr = [];
+
+    Array.prototype.push.apply(arr, arguments);
+    copyOwnPropertiesFrom(arr, MyArray.methods);
+    return arr;
+}
+var a = new MyArray();
+a instanceof MyArray; //false
+a instanceof Array; //true
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>Classes extending built-ins</h2>
+						<h3>Ecmascript 2015 (6)</h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+class MyArray extends Array {
+    constructor(...args) {
+        super(args);
+    }
+}
+//ex below still gives an error, but it shuldn't
+class myMath extends Math {}
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<h2>Modules</h2>
+					<p>Almost<sup>*</sup> native module system.</p>
+				</section>
+
+				<section>
+					<article>
+						<h2>Modules definition</h2>
+						<h3>RequireJS <small>old? way</small></h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+define('countPoints', function (){
+	return function countPoints (langLength, exp) {
+		var pointPerLanguage = 2,
+			pointPerExp = 4;
+
+		return parseInt(langLength * pointPerLanguage, 10) +
+		parseInt(exp  * pointPerExp, 10);
+	}
+});
+//usage
+require(['countPoints'], function(countPoints) {
+	var points = countPoints(2, 5);
+});
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>Modules definition</h2>
+						<h3>Ecmascript 2015 (6)</h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+export function countPoints (langLength = 0, exp = 0) {
+    let pointPerLanguage = 2,
+        pointPerExp = 4;
+
+    return parseInt(langLength * pointPerLanguage, 10) +
+           parseInt(exp  * pointPerExp, 10);
+}
+//usage
+import { countPoints } from 'lib/countPoints.js';
+points = countPoints(2, 5);
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>Modules definition</h2>
+						<h3>Ecmascript 2015 (6) - caveats</h3>
+						<h4 class="fragment"><b style="color: red">it's not</b> great! (for now) :)</h4>
+						<figure class="fragment">
+							<img src="https://photos-2.dropbox.com/t/2/AABz0mjLM3z3t7S-6zz9leSdlHnhir048hQYallA8Y6AbA/12/44521199/png/32x32/3/1447621200/0/2/Screenshot%202015-11-15%2017.35.24.png/ENGciiIYrv0BIAIoAg/037nkj_m-sIXpyo00y0L6KEeYgWeANqx0Kfj_6gQubg?size_mode=2&size=1280x960">
+							<figcaption><small><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import">Support by Mozilla</a></small></figcaption>
+						</figure>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>Modules definition</h2>
+						<h3>Ecmascript 2015 (6) - caveats</h3>
+						<h4>Workarounds</h4>
+						<p><a href="http://browserify.org/">Browersify</a> + <a href="https://github.com/babel/babelify">babelify</a> + <a href="https://nodejs.org/en/">Node.js</a></p>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+								//basic gulp configuration
+var fs = require('fs'),
+    browserify = require('browserify');
+browserify('./script.js')
+  .transform('babelify')
+  .bundle()
+  .pipe(fs.createWriteStream('bundle.js'));
+
+//define
+module.exports = function countPoints (langLength = 0, exp = 0) {...}
+//use
+import countPoints from 'lib/countPoints.js';
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<h2>Blocks &amp;&amp; scope variables</h2>
+				</section>
+
+				<section>
+					<article>
+						<h2>Blocks &amp;&amp; scope variables: consts</h2>
+						<h3>Ecmascript 5 <small>old way</small></h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+//simple and cross-browser, but still writable
+var PI = 3.141593;
+
+//or complicatated and not writable
+Object.defineProperty(window, 'PI', {
+    value:        3.141593,
+    enumerable:   true,
+    writable:     false,
+    configurable: false
+});
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>Blocks &amp;&amp; scope variables: consts</h2>
+						<h3>Ecmascript 2015 (6)</h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+const PI = 3.141593;
+const PI = 1; //Uncaught TypeError: Identifier 'PI' has already been declare
+var PI = 2; //3.141593
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>Blocks &amp;&amp; scope variables: let</h2>
+						<h3>Ecmascript 5 <small>old way</small></h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+var a = 2;
+
+(function own_scope(){
+    var a = 3;
+    console.log( a );   // 3
+})();
+
+console.log( a );       // 2
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>Blocks &amp;&amp; scope variables: let</h2>
+						<h3>Ecmascript 2015 (6)</h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+var a = 2;
+
+{
+    let a = 3;
+    console.log( a );   // 3
+}
+
+console.log( a );       // 2
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<h2>Arrow functions =></h2>
+				</section>
+
+				<section>
+					<article>
+						<h2>Arrow functions: Definition</h2>
+						<h3>Ecmascript 5 <small>old way</small></h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+return (function anonymus(points) {
+    var points = points || 0;
+    //do something with points
+})(countPoints(this.languages().length, this.experience()));
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>Arrow functions: Definition</h2>
+						<h3>Ecmascript 2015 (6)</h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+return ((points = 0) => {
+    //do something with points
+})(countPoints(this.languages.length, this.experience));
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>Arrow functions: Current Object Context</h2>
+						<h3>Ecmascript 5 <small>old way</small></h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+var self = this;
+return (function anonymus(points) {
+    var points = points || 0;
+    //do something with points
+    return self.name() + ' is a Developer';
+})(countPoints(this.languages().length, this.experience()));
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>Arrow functions: Current Object Context</h2>
+						<h3>Ecmascript 2015 (6)</h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+return ((points = 0) => {
+    //do something with points
+    return this.name + ' is a Developer';
+})(countPoints(this.languages.length, this.experience));
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<h2>`${Template Literals}`</h2>
+				</section>
+
+				<section>
+					<article>
+						<h2>Template Literals: String Interpolation</h2>
+						<h3>Ecmascript 5 <small>old way</small></h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+return self.name() + ' is a ' + degree + ' Developer';
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>Template Literals: String Interpolation</h2>
+						<h3>Ecmascript 2015 (6)</h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+return `${this.name} is a ${degree} Developer`;
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<h2>new Data Structure types</h2>
+					<ol>
+						<li class="fragment">
+							Key-value collection
+							<ul>
+								<li class="fragment">Map</li>
+								<li class="fragment">WeakMap (object as a key)</li>
+							</ul>
+						</li>
+						<li class="fragment">
+							Values collection
+							<ul>
+								<li class="fragment">Set</li>
+								<li class="fragment">WeakSet (object as a key)</li>
+							</ul>
+						</li>
+					</ol>
+				</section>
+
+				<section>
+					<article>
+						<h2>new Data Structure types: WeakMap</h2>
+						<h3>Ecmascript 5 <small>old way</small></h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+this.worklog = {}; //defined in costructor
+
+PixersDeveloper.prototype.setWork = function (taskId, timeInMins) {
+    var self = this;
+    if (this.worklog.hasOwnProperty(taskId) === false) {
+        return this.worklog[taskId] = timeInMins;
+    }
+    this.worklog[taskId] = (function () {
+        return self.getWorkById(taskId) + timeInMins;
+    })();
+}
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>new Data Structure types: WeakMap</h2>
+						<h3>Ecmascript 2015 (6)</h3>
+						<pre>
+							<code class="hljs javascript" data-trim contenteditable>
+this.Worklog = new WeakMap(); //defined in costructor
+
+setWork (taskId, timeInMins) {
+    if (this.Worklog.has(taskId) === false) {
+        return this.Worklog.set(taskId, timeInMins);
+    }
+    this.Worklog.set(taskId, (() => {
+        let minutes = this.Worklog.get(taskId);
+        return minutes + timeInMins;
+    })());
+}
+							</code>
+						</pre>
+					</article>
+				</section>
+
+				<section>
+					<article>
+						<h2>There is way much more...</h2>
+						<ul>
+							<li>New built-ins methods...</li>
+							<li>New literals (binary for example)</li>
+							<li>Symbol type</li>
+							<li>Native Promise</li>
+							<li>...</li>
+						</ul>
+					</article>
+				</section>
+
+				<section data-background-iframe="https://kangax.github.io/compat-table/es6/">
+					<h1 style="text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);">
+						<a href="https://kangax.github.io/compat-table/es6/">kangax.github.io/compat-table/es6</a>
+					</h1>
+				</section>
+
+				<section style="text-align: left;">
+					<h1>Great Resources</h1>
+					<ul>
+						<li><a href="http://exploringjs.com/es6/">exploringjs.com</a></li>
+						<li><a href="http://es6-features.org/">es6-features.org</a></li>
+						<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_6_support_in_Mozilla">developer.mozilla.org</a></li>
+						<li><a href="https://github.com/getify/You-Dont-Know-JS/tree/master/es6%20%26%20beyond">You Don't Know JS: ES6 &amp; Beyond</a></li>
+					</ul>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
