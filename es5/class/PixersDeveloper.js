@@ -13,10 +13,9 @@
         return new PixersDeveloper('Mieszkos', 2, ['Whitespace'], -1000)
     }
     PixersDeveloper.prototype.awesomeness = function (value) {
-        if (typeof value === 'undefined') {
-            value = 0;
+        if (typeof value === 'number') {
+            this._awesomeness = parseInt(value, 10);
         }
-        this._awesomeness = parseInt(value, 10);
         return this._awesomeness;
     }
     PixersDeveloper.prototype.getWorkById = function (taskId) {
